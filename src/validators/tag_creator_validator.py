@@ -1,4 +1,5 @@
 from cerberus import Validator
+from src.errors.error_types.http_bad_request import HttpBadRequestError
 
 def tag_creator_validator(request: any) -> None:
     body_validator = Validator({
@@ -11,4 +12,4 @@ def tag_creator_validator(request: any) -> None:
     
     response = body_validator.validate(request.json)
     if response is False:
-        raise Exception(body_validator.errors)
+        raise HttpBadRequestError(body_validator.errors)
